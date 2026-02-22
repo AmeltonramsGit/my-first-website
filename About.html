@@ -4,44 +4,126 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Me</title>
-  <!-- Bootstrap CSS --> 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
-<link rel="stylesheet" href="styles.css"> 
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+#langBtn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  background: black;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+
 </head>
 <body>
-  <!-- Bootstrap JS and dependencies --> 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> 
-<header> 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
-        <div class="container"> 
-            <a class="navbar-brand" href="index.html">My Website</a> 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"> 
-                <span class="navbar-toggler-icon"></span> 
-            </button> 
-            <div class="collapse navbar-collapse" id="navbarNav"> 
-                <ul class="navbar-nav"> 
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="index.html">Home</a> 
-                    </li> 
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="About.html">About</a> 
-                    </li> 
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="Contact.html">Contact</a> 
-                    </li> 
-                </ul> 
-            </div> 
-        </div> 
-    </nav> 
-</header> 
-<main class="container my-5"> 
-    <h2>About Me</h2> 
-    <p>Hi! I'm a beginner web developer learning how to use GitHub Pages.</p> 
-    <p>This is my first multi-page website, and I'm excited to share it with you!</p> 
+
+<!-- Language Button -->
+<button id="langBtn" onclick="toggleLanguage()">EN</button>
+
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container">
+<a class="navbar-brand" href="index.html">My Website</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+<li class="nav-item">
+<a class="nav-link" id="navHome" href="index.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="navAbout" href="About.html">About</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" id="navContact" href="Contact.html">Contact</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</header>
+
+<main class="container my-5">
+<h2 id="aboutTitle">About Me</h2>
+<p id="aboutText1">Hi! I'm a beginner web developer learning how to use GitHub Pages.</p>
+<p id="aboutText2">This is my first multi-page website, and I'm excited to share it with you!</p>
 </main>
-<footer>
+
+<footer class="text-center">
 <p>&copy; 2026 Amelton._.Rams</p>
 </footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+let currentLang = localStorage.getItem("language") || "en";
+
+const translations = {
+en: {
+navHome: "Home",
+navAbout: "About",
+navContact: "Contact",
+aboutTitle: "About Me",
+aboutText1: "Hi! I'm a beginner web developer learning how to use GitHub Pages.",
+aboutText2: "This is my first multi-page website, and I'm excited to share it with you!"
+},
+fr: {
+navHome: "Accueil",
+navAbout: "À propos",
+navContact: "Contact",
+aboutTitle: "À propos de moi",
+aboutText1: "Salut ! Je suis un développeur web débutant qui apprend à utiliser GitHub Pages.",
+aboutText2: "Ceci est mon premier site web multi-pages et je suis ravi de le partager avec vous !"
+},
+de: {
+navHome: "Startseite",
+navAbout: "Über mich",
+navContact: "Kontakt",
+aboutTitle: "Über mich",
+aboutText1: "Hallo! Ich bin ein Anfänger im Webentwickeln und lerne GitHub Pages zu benutzen.",
+aboutText2: "Dies ist meine erste mehrseitige Webseite und ich freue mich, sie mit dir zu teilen!"
+}
+};
+
+function applyLanguage(lang) {
+for (let key in translations[lang]) {
+document.getElementById(key).innerText = translations[lang][key];
+}
+document.getElementById("langBtn").innerText = lang.toUpperCase();
+localStorage.setItem("language", lang);
+currentLang = lang;
+}
+
+function toggleLanguage() {
+if (currentLang === "en") {
+applyLanguage("fr");
+} else if (currentLang === "fr") {
+applyLanguage("de");
+} else {
+applyLanguage("en");
+}
+}
+
+window.onload = function() {
+applyLanguage(currentLang);
+};
+</script>
+
 </body>
 </html>
